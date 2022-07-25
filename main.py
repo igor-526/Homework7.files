@@ -34,6 +34,8 @@ def menu(choise):
     else:
         print('До свидания!')
 def shoplist(dishes, person):
+    for i in range (0, len(dishes)):
+        dishes[i] = dishes[i].capitalize()
     cook_book = cookbook()
     shop_list = {}
     for dish in dishes:
