@@ -1,8 +1,12 @@
+import os
 def cookbook():
     cookbook_list = []
     cook_book = {}
-    ingridients=[]
-    with open('files/cookbook.txt') as cookbook:
+    ROOT_PATH = os.getcwd()
+    FILE_NAME = 'cookbook.txt'
+    FILE_DIR = 'files'
+    file_path = os.path.join(ROOT_PATH, FILE_DIR, FILE_NAME)
+    with open(file_path) as cookbook:
        for line in cookbook:
            cookbook_list.append(line.strip())
     while len(cookbook_list) != 0:
