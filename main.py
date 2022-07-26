@@ -58,6 +58,8 @@ def shoplist(dishes, person):
 def sorting():
     def getcounter(x):
         return(x['counter'])
+    if os.path.isfile('result.txt'):
+        os.remove('result.txt')
     ROOT_PATH = os.getcwd()
     FILE_DIR = 'for_sort'
     data_for_sort = []
