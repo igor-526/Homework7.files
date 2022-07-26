@@ -19,6 +19,7 @@ def menu(choise):
     while choise != 'q':
         print('1. Показать cookbook')
         print('2. Рассчитать список для покупок')
+        print('3. Получить отсортированный файл из файлов в папке for_sort')
         print('q. Выход из программы')
         choise = input('Выберите пункт: ')
         if choise == '1':
@@ -26,6 +27,9 @@ def menu(choise):
             print()
         elif choise == '2':
             print(shoplist(input("Введите через запятую с пробелом наименования блюд: ").split(', '), int(input("Введите количество персон: "))))
+            print()
+        elif choise == '3':
+            sorting()
             print()
         else:
             if choise != 'q':
@@ -51,4 +55,29 @@ def shoplist(dishes, person):
     for ingredient in shop_list:
         shop_list[ingredient]['quantity'] = shop_list[ingredient]['quantity'] * person
     return(shop_list)
+def sorting():
+    def getcounter(x):
+        return(x['counter'])
+    ROOT_PATH = os.getcwd()
+    FILE_DIR = 'for_sort'
+    data_for_sort = []
+    print(f'В папке для сортировки находится {len(os.listdir(path=os.path.join(ROOT_PATH, FILE_DIR)))} файла(-ов)')
+    for file in os.listdir(path=os.path.join(ROOT_PATH, FILE_DIR)):
+        with open(os.path.join(ROOT_PATH, FILE_DIR, file)) as file_for_sort:
+            counter = 0
+            for line in file_for_sort:
+                counter+=1
+        data_for_sort.append({'file': file, 'counter': counter})
+    sorted_data = sorted(data_for_sort, key=getcounter)
+    with open(os.path.join(ROOT_PATH, 'result.txt'), 'a') as sorted_file:
+        for data_to_write in sorted_data:
+            sorted_file.write(data_to_write['file'])
+            sorted_file.write('\n')
+            sorted_file.write(str(data_to_write['counter']))
+            sorted_file.write('\n')
+            with open(os.path.join(ROOT_PATH, FILE_DIR, data_to_write['file'])) as file_to_write:
+                for line in file_to_write:
+                    sorted_file.write(line)
+                sorted_file.write('\n\n')
+    print('Успешно! Отсортированный файл result.txt находится в папке с проектом')
 menu(0)
